@@ -1,9 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using ModelPlaneAPI.Data;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +30,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseStaticFiles();
+app.UseStaticFiles(); // For serving static files
 
 app.Run();

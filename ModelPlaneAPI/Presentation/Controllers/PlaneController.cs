@@ -13,10 +13,13 @@ namespace ModelPlaneApp.API.Controllers
     public class PlanesController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PlanesController(IMediator mediator)
+
+        public PlanesController(IMediator mediator, IWebHostEnvironment webHostEnvironment)
         {
             _mediator = mediator;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet]
@@ -53,6 +56,25 @@ namespace ModelPlaneApp.API.Controllers
             return CreatedAtAction(nameof(GetPlane), new { id = planeId }, planeId);
         }
 
+        [HttpPost("{id}/upload-image")]
+        public async Task<IActionResult> UploadImage(Guid id, IFormFile file)
+        {
+            var command = new UploadImageCommand
+            {
+                PlaneId = id,
+                File = file
+            };
+
+            try
+            {
+                var imageUrl = await _mediator.Send(command);
+                return Ok(new { Url = imageUrl });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePlane(Guid id, [FromBody] UpdatePlaneCommand command)
         {
