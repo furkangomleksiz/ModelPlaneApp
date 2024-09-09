@@ -1,0 +1,14 @@
+/* src/app/components/banner/banner.component.css */
+.logo {
+    height: 80px;
+    width: auto;  /* Maintain aspect ratio */
+    margin-right: 20px;  /* Adjust space between logo and title */
+  }
+  
+  .jumbotron {
+    background-color: #f8f9fa;
+    padding: 20px 20px;
+    margin-bottom: 0;
+    border-bottom: 2px solid #dee2e6;
+  }
+  

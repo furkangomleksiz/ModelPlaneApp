@@ -1,0 +1,12 @@
+<!-- src/app/pages/home/home.component.html -->
+<div class="container">
+    <h2>Latest Additions</h2>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let plane of planes">
+        <h5>{{ plane.name }}</h5>
+        <p>Manufacturer: {{ plane.manufacturer }}</p>
+        <p>Scale: {{ plane.scale }}</p>
+      </li>
+    </ul>
+  </div>
+  
