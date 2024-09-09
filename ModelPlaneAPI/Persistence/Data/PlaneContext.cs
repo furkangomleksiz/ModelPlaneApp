@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ModelPlaneAPI.Models;
 
 namespace ModelPlaneAPI.Data
 {
@@ -13,7 +12,16 @@ namespace ModelPlaneAPI.Data
 
         public PlaneContext(DbContextOptions<PlaneContext> options) 
         : base(options) 
-        {  
+        {
+              
+        }
+
+         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // If you have specific configurations for Plane, you can add them here
+            modelBuilder.Entity<Plane>().ToTable("Planes");
         }
 
         

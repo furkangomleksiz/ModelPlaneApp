@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using ModelPlaneAPI.Models;
+using System.Collections.Generic;
 
 namespace ModelPlaneApp.Application.Commands
 {
@@ -19,18 +19,31 @@ namespace ModelPlaneApp.Application.Commands
         {
             var plane = new Plane
             {
-                Id = Guid.NewGuid(), // ID is generated here
-                Name = request.Name,
-                Manufacturer = request.Manufacturer,
-                ManufactureDate = request.ManufactureDate,
-                Model = request.Model,
-                Scale = request.Scale,
-                ImageUrl = request.ImageUrl
+                Id = Guid.NewGuid(),  // Generate UUID for the plane
+                Wings900Id = request.Wings900Id,  // Unique wings900 ID
+
+                Manufacturer = request.Manufacturer,  // Enum
+                Scale = request.Scale,  // Enum
+                Airline = request.Airline,  // Enum
+                Aircraft = request.Aircraft,  // Enum
+                PartNumber = request.PartNumber,
+                Registration = request.Registration,
+                Country = request.Country,
+                ProductionYears = request.ProductionYears,
+                RollingGears = request.RollingGears,
+                Notes = request.Notes,
+                Engines = request.Engines,
+                UnitsMade = request.UnitsMade,
+                IncludesStand = request.IncludesStand,
+
+                // Adding images from the request
+                Images = new List<string>(request.ImageUrls)
             };
 
+            // Save the plane to the repository
             await _planeRepository.AddPlaneAsync(plane);
 
-            return plane.Id;
+            return plane.Id;  // Return UUID
         }
     }
 }

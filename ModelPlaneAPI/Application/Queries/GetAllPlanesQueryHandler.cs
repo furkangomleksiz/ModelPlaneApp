@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using ModelPlaneAPI.Models;
 namespace ModelPlaneApp.Application.Queries
 {
     public class GetAllPlanesQueryHandler : IRequestHandler<GetAllPlanesQuery, List<Plane>>

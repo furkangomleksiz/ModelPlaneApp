@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using System.Collections.Generic;
 
 namespace ModelPlaneApp.Application.Commands
 {
@@ -16,20 +17,36 @@ namespace ModelPlaneApp.Application.Commands
 
         public async Task<bool> Handle(UpdatePlaneCommand request, CancellationToken cancellationToken)
         {
+            // Fetch the plane from the repository using the UUID
             var plane = await _planeRepository.GetPlaneByIdAsync(request.Id);
+
             if (plane == null)
             {
-                return false;
+                throw new Exception($"Plane with Id {request.Id} not found");
             }
 
-            plane.Name = request.Name;
-            plane.Manufacturer = request.Manufacturer;
-            plane.ManufactureDate = request.ManufactureDate;
-            plane.Model = request.Model;
-            plane.Scale = request.Scale;
-            plane.ImageUrl = request.ImageUrl;
+            // Update all the properties
+            plane.Wings900Id = request.Wings900Id;
+            plane.Manufacturer = request.Manufacturer;  // Enum
+            plane.Scale = request.Scale;  // Enum
+            plane.Airline = request.Airline;  // Enum
+            plane.Aircraft = request.Aircraft;  // Enum
+            plane.PartNumber = request.PartNumber;
+            plane.Registration = request.Registration;
+            plane.Country = request.Country;
+            plane.ProductionYears = request.ProductionYears;
+            plane.RollingGears = request.RollingGears;
+            plane.Notes = request.Notes;
+            plane.Engines = request.Engines;
+            plane.UnitsMade = request.UnitsMade;
+            plane.IncludesStand = request.IncludesStand;
 
+            // Replace the existing image URLs with the new ones
+            plane.Images = new List<string>(request.ImageUrls);
+
+            // Save the updated plane back to the repository
             await _planeRepository.UpdatePlaneAsync(plane);
+
             return true;
         }
     }

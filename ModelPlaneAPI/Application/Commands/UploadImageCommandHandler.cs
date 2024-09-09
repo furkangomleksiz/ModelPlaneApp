@@ -1,4 +1,3 @@
-// File: Application/Commands/UploadImageCommandHandler.cs
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -47,9 +46,11 @@ public class UploadImageCommandHandler : IRequestHandler<UploadImageCommand, str
             await request.File.CopyToAsync(stream);
         }
 
-        // Update the plane with the image URL
+        // Construct the image URL
         var imageUrl = $"/images/planes/{fileName}";
-        plane.ImageUrl = imageUrl;
+
+        // Add the new image URL to the Images array
+        plane.Images.Add(imageUrl); // Append the new image URL to the Images list
         await _planeRepository.UpdatePlaneAsync(plane);
 
         return imageUrl;

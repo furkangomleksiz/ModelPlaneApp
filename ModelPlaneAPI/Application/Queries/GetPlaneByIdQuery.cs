@@ -1,6 +1,5 @@
 using System;
 using MediatR;
-using ModelPlaneAPI.Models;
 
 namespace ModelPlaneApp.Application.Queries
 {
