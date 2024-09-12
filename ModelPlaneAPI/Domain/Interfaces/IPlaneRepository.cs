@@ -9,4 +9,5 @@ public interface IPlaneRepository
     Task<Plane> AddPlaneAsync(Plane plane);
     Task UpdatePlaneAsync(Plane plane);
     Task DeletePlaneAsync(Guid id);
+    IQueryable<Plane> GetPlanes();
 }

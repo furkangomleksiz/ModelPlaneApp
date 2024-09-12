@@ -54,4 +54,9 @@ public class PlaneRepository : IPlaneRepository
             await _context.SaveChangesAsync();
         }
     }
+
+    public IQueryable<Plane> GetPlanes()
+    {
+        return _context.Planes.AsQueryable();
+    }
 }

@@ -106,5 +106,12 @@ namespace ModelPlaneApp.API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchPlanes([FromQuery] SearchPlanesQuery query)
+        {
+            var planes = await _mediator.Send(query);
+            return Ok(planes);
+        }
     }
 }
