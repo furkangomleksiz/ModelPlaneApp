@@ -2,26 +2,67 @@ public enum Manufacturer
 {
     AdmiralToys,
     Herpa,
-    // Add other manufacturers here
+    GeminiJets,
+    DragonWings,
+    PhoenixModels,
+    AeroClassics,
+    JCWings,
+    HoganWings
 }
 
 public enum Scale
 {
     OneEightySeven = 1,  // 1:87
     TwoHundred,          // 1:200
-    // Add other scales here
+    FourHundred,         // 1:400
+    FiveHundred,         // 1:500
+    SixHundred           // 1:600
 }
 
 public enum Airline
 {
+    Airline1,
+    Airline2,
+    Airline3,
+    BelgianAirForce,
     MartinairHolland,
-    // Add other airlines here
+    AmericanAirlines,
+    DeltaAirLines,
+    Lufthansa,
+    BritishAirways,
+    Emirates,
+    QatarAirways,
+    SingaporeAirlines
 }
 
 public enum Aircraft
 {
+    Aircraft1,
+    Aircraft2,
+    Aircraft3,
     Cessna172,
-    // Add other aircraft here
+    A300,
+    A310,
+    A318,
+    A319,
+    A320,
+    A321,
+    A330,
+    A340,
+    A350,
+    A380,
+    B707,
+    B727,
+    B737,
+    B747,
+    B757,
+    B767,
+    B777,
+    B787,
+    DC10,
+    L1011,
+    CRJ,
+    VC10
 }
 
 public class Plane

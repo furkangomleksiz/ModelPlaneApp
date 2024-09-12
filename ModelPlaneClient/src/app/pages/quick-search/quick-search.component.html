@@ -1,6 +1,69 @@
-<!-- src/app/pages/quick-search/quick-search.component.html -->
-<div class="container">
-    <h2>Quick Search</h2>
-    <p>Quick search functionality will be here.</p>
+<div class="container mt-4">
+  <form (ngSubmit)="onSearch()" class="niceform">
+    <table width="100%" cellpadding="2" cellspacing="0" style="border-collapse: collapse; border: 0px solid; border-width: 0;">
+      <tr class="formContainer">
+        <!-- Airline Dropdown -->
+        <td align="center">
+          <select [(ngModel)]="searchCriteria.airline" name="airline" class="searchInput">
+            <option value="">Airline</option>
+            <option *ngFor="let airline of airlines" [value]="airline">{{ airline }}</option>
+          </select>
+        </td>
+
+        <!-- Aircraft Dropdown -->
+        <td align="center">
+          <select [(ngModel)]="searchCriteria.aircraft" name="aircraft" class="searchInput">
+            <option value="">Aircraft</option>
+            <option *ngFor="let aircraft of aircrafts" [value]="aircraft">{{ aircraft }}</option>
+          </select>
+        </td>
+
+        <!-- Manufacturer Dropdown -->
+        <td align="center">
+          <select [(ngModel)]="searchCriteria.manufacturer" name="manufacturer" class="searchInput">
+            <option value="">Manufacturer</option>
+            <option *ngFor="let manufacturer of manufacturers" [value]="manufacturer">{{ manufacturer }}</option>
+          </select>
+        </td>
+
+        <!-- Scale Dropdown -->
+        <td align="center">
+          <select [(ngModel)]="searchCriteria.scale" name="scale" class="searchInput">
+            <option value="">Scale</option>
+            <option *ngFor="let scale of scales" [value]="scale">{{ scale }}</option>
+          </select>
+        </td>
+
+        <!-- Part Number Input -->
+        <td align="center">
+          <input type="text" placeholder="Part #" [(ngModel)]="searchCriteria.partNumber" name="partNumber" maxlength="100" size="10" class="searchInput">
+        </td>
+
+        <!-- Model ID Input -->
+        <td align="center">
+          <input type="text" placeholder="Model ID" [(ngModel)]="searchCriteria.modelId" name="modelId" maxlength="100" size="10" class="searchInput">
+        </td>
+
+        <!-- Search Button -->
+        <td align="center" width="75">
+          <input type="submit" value="Search" class="searchButton">
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <!-- Display search results here -->
+  <div *ngIf="searchResults.length > 0" class="mt-4">
+    <h3>Search Results</h3>
+    <div *ngFor="let plane of searchResults" class="card mb-3">
+      <div class="card-body">
+        <p><strong>Airline:</strong> {{ plane.airline }}</p>
+        <p><strong>Aircraft:</strong> {{ plane.aircraft }}</p>
+        <p><strong>Manufacturer:</strong> {{ plane.manufacturer }}</p>
+        <p><strong>Scale:</strong> {{ plane.scale }}</p>
+        <p><strong>Part Number:</strong> {{ plane.partNumber }}</p>
+        <p><strong>Model ID:</strong> {{ plane.modelId }}</p>
+      </div>
+    </div>
   </div>
-  
+</div>
