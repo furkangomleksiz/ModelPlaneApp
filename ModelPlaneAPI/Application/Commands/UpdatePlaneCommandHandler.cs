@@ -27,10 +27,10 @@ namespace ModelPlaneApp.Application.Commands
 
             // Update all the properties
             plane.Wings900Id = request.Wings900Id;
-            plane.Manufacturer = request.Manufacturer;  // Enum
-            plane.Scale = request.Scale;  // Enum
-            plane.Airline = request.Airline;  // Enum
-            plane.Aircraft = request.Aircraft;  // Enum
+            plane.Manufacturer = request.Manufacturer;  // Now a string
+            plane.Scale = request.Scale;  // Now a string
+            plane.Airline = request.Airline;  // Now a string
+            plane.Model = request.Model;  // Replacing Aircraft with Model (combined make + model)
             plane.PartNumber = request.PartNumber;
             plane.Registration = request.Registration;
             plane.Country = request.Country;

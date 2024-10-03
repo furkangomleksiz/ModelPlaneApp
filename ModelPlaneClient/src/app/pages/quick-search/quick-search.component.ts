@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-quick-search',
@@ -25,29 +27,20 @@ export class QuickSearchComponent {
     'Singapore Airlines'
   ];
 
-  aircrafts = [
+  models = [
+    'Airbus Industries A400M',
+    'Boeing 747-400',
+    'Embraer E190',
     'Cessna 172',
-    'A300',
-    'A318',
-    'A319',
-    'A320',
-    'A321',
-    'A330',
-    'A340',
-    'A350',
-    'A380',
-    'B707',
-    'B727',
-    'B737',
-    'B747',
-    'B757',
-    'B767',
-    'B777',
-    'B787',
-    'DC-10',
-    'L1011',
-    'CRJ',
-    'VC-10'
+    'Airbus A320',
+    'Boeing 737-800',
+    'Airbus A350',
+    'Airbus A380',
+    'Boeing 777-300ER',
+    'Boeing 787-9 Dreamliner',
+    'Lockheed C-130 Hercules',
+    'McDonnell Douglas DC-10',
+    'Antonov An-225 Mriya'
   ];
 
   manufacturers = [
@@ -72,26 +65,49 @@ export class QuickSearchComponent {
   // Search criteria model
   searchCriteria = {
     airline: '',
-    aircraft: '',
+    model: '',         // Updated from aircraft to model
     manufacturer: '',
     scale: '',
     partNumber: '',
-    modelId: ''
+    wings900Id: ''
   };
+
 
   // Holds the results of the search
   searchResults: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
+  
   // Trigger search logic
-  onSearch() {
-    console.log('Search criteria:', this.searchCriteria);
+onSearch() {
+  const params = new URLSearchParams();
 
-    // Call API to search database with this.searchCriteria
-    this.http.post<any[]>('/api/planes/search', this.searchCriteria).subscribe(result => {
+  // Add selected values directly as they are strings
+  if (this.searchCriteria.manufacturer) params.append('manufacturer', this.searchCriteria.manufacturer);
+  if (this.searchCriteria.airline) params.append('airline', this.searchCriteria.airline);
+  if (this.searchCriteria.model) params.append('model', this.searchCriteria.model);  // Changed from aircraft to model
+  if (this.searchCriteria.scale) params.append('scale', this.searchCriteria.scale);
+
+  if (this.searchCriteria.partNumber) {
+    params.append('partNumber', this.searchCriteria.partNumber);
+  }
+
+  if (this.searchCriteria.wings900Id) {
+    params.append('modelId', this.searchCriteria.wings900Id);  // Ensure this refers to Wings900Id
+  }
+
+  // Make HTTP GET request with the search criteria
+  this.http.get<any[]>(`${environment.apiUrl}/planes/search?` + params.toString()).subscribe(
+    result => {
       this.searchResults = result;
       console.log('Search result:', this.searchResults);
-    });
-  }
+    },
+    error => {
+      console.error('Error during search:', error);
+      alert('An error occurred while performing the search.');
+    }
+  );
+}
+
 }

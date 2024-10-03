@@ -18,5 +18,5 @@ namespace ModelPlaneApp.Application.Queries
         {
             return await _planeRepository.GetPlaneByIdAsync(request.Id);
         }
-    }
+}
 }

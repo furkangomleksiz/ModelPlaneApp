@@ -1,6 +1,139 @@
-<!-- src/app/pages/advanced-search/advanced-search.component.html -->
-<div class="container">
-    <h2>Advanced Search</h2>
-    <p>Advanced search functionality will be here.</p>
+<div class="container mt-4" style="max-width: 50%; margin: auto;">
+  <form (ngSubmit)="onSearch()" class="niceform">
+    <div class="search-row">
+      <!-- Manufacturer Dropdown -->
+      <div class="search-item">
+        <select [(ngModel)]="searchCriteria.manufacturer" name="manufacturer" class="searchInput">
+          <option value="">Manufacturer</option>
+          <option *ngFor="let manufacturer of manufacturers" [value]="manufacturer">{{ manufacturer }}</option>
+        </select>
+      </div>
+
+      <!-- Airline Dropdown -->
+      <div class="search-item">
+        <select [(ngModel)]="searchCriteria.airline" name="airline" class="searchInput">
+          <option value="">Airline</option>
+          <option *ngFor="let airline of airlines" [value]="airline">{{ airline }}</option>
+        </select>
+      </div>
+
+      <!-- Model Dropdown (Replaces Make and Aircraft) -->
+      <div class="search-item">
+        <select [(ngModel)]="searchCriteria.model" name="model" class="searchInput">
+          <option value="">Model</option>
+          <option *ngFor="let model of models" [value]="model">{{ model }}</option>
+        </select>
+      </div>
+
+      <!-- Scale Dropdown -->
+      <div class="search-item">
+        <select [(ngModel)]="searchCriteria.scale" name="scale" class="searchInput">
+          <option value="">Scale</option>
+          <option *ngFor="let scale of scales" [value]="scale">{{ scale }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="search-row">
+      <!-- Country Dropdown -->
+      <div class="search-item">
+        <select [(ngModel)]="searchCriteria.country" name="country" class="searchInput">
+          <option value="">Country</option>
+          <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+        </select>
+      </div>
+
+      <!-- Continent Dropdown -->
+      <div class="search-item">
+        <select [(ngModel)]="searchCriteria.continent" name="continent" class="searchInput">
+          <option value="">Continent</option>
+          <option *ngFor="let continent of continents" [value]="continent">{{ continent }}</option>
+        </select>
+      </div>
+
+      <!-- Part Number Input -->
+      <div class="search-item">
+        <input type="text" placeholder="Part #" [(ngModel)]="searchCriteria.partNumber" name="partNumber"
+          maxlength="100" class="searchInput">
+      </div>
+
+      <!-- Wings900 ID Input -->
+      <div class="search-item">
+        <input type="text" placeholder="Wings900 ID" [(ngModel)]="searchCriteria.wings900Id" name="wings900Id"
+          maxlength="100" class="searchInput">
+      </div>
+
+    </div>
+
+    <div class="search-row">
+      <!-- Registration Input -->
+      <div class="search-item">
+        <input type="text" placeholder="Registration" [(ngModel)]="searchCriteria.registration" name="registration"
+          maxlength="25" class="searchInput">
+      </div>
+
+      <!-- Production Years Input -->
+      <div class="search-item">
+        <input type="text" placeholder="Production Years" [(ngModel)]="searchCriteria.productionYears"
+          name="productionYears" maxlength="25" class="searchInput">
+      </div>
+
+      <!-- Sort By Dropdown -->
+      <div class="search-item">
+        <select [(ngModel)]="searchCriteria.sortBy" name="sortBy" class="searchInput">
+          <option value="">Sort By</option>
+          <option value="modelId">Model ID</option>
+          <option value="airline">Airline</option>
+          <option value="model">Model</option>
+        </select>
+      </div>
+
+      <!-- Order Dropdown -->
+      <div class="search-item">
+        <select [(ngModel)]="searchCriteria.order" name="order" class="searchInput small-dropdown">
+          <option value="">Order</option>
+          <option value="ASC">Ascending</option>
+          <option value="DESC">Descending</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="search-row">
+      <!-- Rolling Gears Checkbox -->
+      <div class="search-item">
+        <label>
+          <input type="checkbox" [(ngModel)]="searchCriteria.rollingGears" name="rollingGears"> Rolling Gears
+        </label>
+      </div>
+
+      <!-- Includes Stand Checkbox -->
+      <div class="search-item">
+        <label>
+          <input type="checkbox" [(ngModel)]="searchCriteria.includesStand" name="includesStand"> Includes Stand
+        </label>
+      </div>
+
+      <!-- Search and Reset Buttons -->
+      <div class="search-buttons">
+        <input type="submit" value="Search" class="searchButton">
+        <button type="reset" (click)="onReset()" class="resetButton">Reset</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Display search results here -->
+  <div *ngIf="searchResults.length > 0" class="mt-4">
+    <h3>Search Results</h3>
+    <div *ngFor="let plane of searchResults" class="card mb-3">
+      <div class="card-body">
+        <p><strong>Airline:</strong> {{ plane.airline }}</p>
+        <p><strong>Model:</strong> {{ plane.model }}</p> <!-- Replaced Aircraft -->
+        <p><strong>Manufacturer:</strong> {{ plane.manufacturer }}</p>
+        <p><strong>Scale:</strong> {{ plane.scale }}</p>
+        <p><strong>Part Number:</strong> {{ plane.partNumber }}</p>
+        <p><strong>Model ID:</strong> {{ plane.modelId }}</p>
+        <p><strong>Registration:</strong> {{ plane.registration }}</p>
+      </div>
+    </div>
   </div>
-  
+</div>

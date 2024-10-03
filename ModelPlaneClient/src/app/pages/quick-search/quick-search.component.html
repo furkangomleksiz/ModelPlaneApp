@@ -1,6 +1,7 @@
 <div class="container mt-4">
   <form (ngSubmit)="onSearch()" class="niceform">
-    <table width="100%" cellpadding="2" cellspacing="0" style="border-collapse: collapse; border: 0px solid; border-width: 0;">
+    <table width="100%" cellpadding="2" cellspacing="0"
+      style="border-collapse: collapse; border: 0px solid; border-width: 0;">
       <tr class="formContainer">
         <!-- Airline Dropdown -->
         <td align="center">
@@ -10,13 +11,15 @@
           </select>
         </td>
 
-        <!-- Aircraft Dropdown -->
+        <!-- Model Dropdown -->
         <td align="center">
-          <select [(ngModel)]="searchCriteria.aircraft" name="aircraft" class="searchInput">
-            <option value="">Aircraft</option>
-            <option *ngFor="let aircraft of aircrafts" [value]="aircraft">{{ aircraft }}</option>
+          <select [(ngModel)]="searchCriteria.model" name="model" class="searchInput">
+            <option value="">Model</option>
+            <option *ngFor="let model of models" [value]="model">{{ model }}</option>
           </select>
         </td>
+
+
 
         <!-- Manufacturer Dropdown -->
         <td align="center">
@@ -36,12 +39,14 @@
 
         <!-- Part Number Input -->
         <td align="center">
-          <input type="text" placeholder="Part #" [(ngModel)]="searchCriteria.partNumber" name="partNumber" maxlength="100" size="10" class="searchInput">
+          <input type="text" placeholder="Part #" [(ngModel)]="searchCriteria.partNumber" name="partNumber"
+            maxlength="100" size="10" class="searchInput">
         </td>
 
-        <!-- Model ID Input -->
+        <!-- Wings900 ID Input -->
         <td align="center">
-          <input type="text" placeholder="Model ID" [(ngModel)]="searchCriteria.modelId" name="modelId" maxlength="100" size="10" class="searchInput">
+          <input type="text" placeholder="Wings900 ID" [(ngModel)]="searchCriteria.wings900Id" name="wings900Id"
+            maxlength="100" size="10" class="searchInput">
         </td>
 
         <!-- Search Button -->
@@ -58,11 +63,11 @@
     <div *ngFor="let plane of searchResults" class="card mb-3">
       <div class="card-body">
         <p><strong>Airline:</strong> {{ plane.airline }}</p>
-        <p><strong>Aircraft:</strong> {{ plane.aircraft }}</p>
+        <p><strong>Model:</strong> {{ plane.model }}</p> <!-- Updated from Aircraft to Model -->
         <p><strong>Manufacturer:</strong> {{ plane.manufacturer }}</p>
         <p><strong>Scale:</strong> {{ plane.scale }}</p>
         <p><strong>Part Number:</strong> {{ plane.partNumber }}</p>
-        <p><strong>Model ID:</strong> {{ plane.modelId }}</p>
+        <p><strong>Wings900 ID:</strong> {{ plane.wings900Id }}</p> <!-- Updated to wings900Id -->
       </div>
     </div>
   </div>

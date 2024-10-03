@@ -1,34 +1,75 @@
-/* Updated Button Class */
-.searchButton {
-    height: 26px;
-    border: 1px solid #2989CC; /* Border with a blue shade */
-    padding: 1px 10px;
-    font-weight: bold;
-    font-size: 12px;
-    font-family: inherit;
-    color: white; /* Text color white */
-    background-color: #2989CC; /* Solid blue background color */
-    cursor: pointer;
-    margin: 0;
-    outline: 0;
-    border-radius: 2px;
-  }
-  
-  /* Search Input Styling */
-  .searchInput {
-    border: 1px solid #999999;
-    font-family: "Arial", "Open Sans", Verdana, Arial, Helvetica;
-    font-size: 10px;
-    border-radius: 3px;
-    color: #222222;
-    padding: 5px;
-    width: 125px; /* Same as in the original */
-  }
-  
-  /* Style for the input fields' container to ensure proper layout */
-  .formContainer {
-    display: flex;
-    justify-content: center;
+/* Styling for the rows of inputs */
+.search-row {
+  display: flex;
+  justify-content: center; /* Center-align the rows */
+  margin-bottom: 15px;
+  gap: 10px; /* Reduce the gap between items to bring them closer */
+}
+
+/* Styling for individual search inputs */
+.search-item {
+  flex: 1;
+  padding: 0 5px; /* Reduced padding to make items closer */
+}
+
+/* Ensure all inputs and dropdowns have the same width */
+.searchInput {
+  width: 120px; /* Set a slightly smaller width to bring them closer */
+  padding: 6px 10px;
+  border-radius: 3px;
+  border: 1px solid #999;
+  font-size: 12px;
+  font-family: "Arial", "Open Sans", Verdana, Arial, Helvetica;
+}
+
+/* Specifically style the 'Order' dropdown to prevent it from stretching */
+.small-dropdown {
+  width: 120px; /* Consistent width with other inputs */
+}
+
+/* Button Styling */
+.searchButton, .resetButton {
+  padding: 6px 12px;
+  background-color: #2989CC;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.searchButton:hover, .resetButton:hover {
+  background-color: #007BFF;
+}
+
+/* Button container for alignment */
+.search-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+/* Padding between the fields */
+table.niceform td {
+  padding: 5px;
+}
+
+/* Optional responsive behavior for smaller screens */
+@media (max-width: 768px) {
+  .search-row {
+    flex-direction: column; /* Stack form inputs vertically on small screens */
     align-items: center;
   }
-  
+
+  .searchInput, .small-dropdown {
+    width: 100%; /* Full width on small screens */
+    margin-bottom: 10px;
+  }
+
+  .search-buttons {
+    margin-top: 10px;
+  }
+}

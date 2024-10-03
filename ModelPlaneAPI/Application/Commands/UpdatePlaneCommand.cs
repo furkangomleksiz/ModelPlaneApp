@@ -8,10 +8,11 @@ namespace ModelPlaneApp.Application.Commands
     {
         public Guid Id { get; set; }  // UUID of the plane being updated
         public int Wings900Id { get; set; }  // Unique ID from wings900
-        public Manufacturer Manufacturer { get; set; }  // Enum
-        public Scale Scale { get; set; }  // Enum
-        public Airline Airline { get; set; }  // Enum
-        public Aircraft Aircraft { get; set; }  // Enum
+
+        public string Manufacturer { get; set; }  // Now a string
+        public string Scale { get; set; }  // Now a string
+        public string Airline { get; set; }  // Now a string
+        public string Model { get; set; }  // Replacing Aircraft with Model (combined make + model)
         public string PartNumber { get; set; }
         public string Registration { get; set; }
         public string Country { get; set; }
@@ -23,6 +24,6 @@ namespace ModelPlaneApp.Application.Commands
         public bool IncludesStand { get; set; }
 
         // List of image URLs or file paths
-        public List<string> ImageUrls { get; set; }
+        public List<string> ImageUrls { get; set; } = new List<string>();  // Default initialization to avoid null references
     }
 }

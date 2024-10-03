@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModelPlaneAPI.Data;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ModelPlaneAPI.Persistence.Data.Migrations
 {
     [DbContext(typeof(PlaneContext))]
-    partial class PlaneContextModelSnapshot : ModelSnapshot
+    [Migration("20240925170504_AddContinentColumn")]
+    partial class AddContinentColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +32,11 @@ namespace ModelPlaneAPI.Persistence.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Airline")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Aircraft")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Airline")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Continent")
                         .IsRequired()
@@ -52,13 +57,8 @@ namespace ModelPlaneAPI.Persistence.Data.Migrations
                     b.Property<bool>("IncludesStand")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Manufacturer")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Manufacturer")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Notes")
                         .IsRequired()
@@ -79,9 +79,8 @@ namespace ModelPlaneAPI.Persistence.Data.Migrations
                     b.Property<bool>("RollingGears")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Scale")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Scale")
+                        .HasColumnType("integer");
 
                     b.Property<int>("UnitsMade")
                         .HasColumnType("integer");

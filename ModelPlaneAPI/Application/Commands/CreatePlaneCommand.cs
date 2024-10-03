@@ -7,13 +7,14 @@ namespace ModelPlaneApp.Application.Commands
     public class CreatePlaneCommand : IRequest<Guid>
     {
         public int Wings900Id { get; set; }  // Unique ID from wings900
-        public Manufacturer Manufacturer { get; set; }  // Enum
-        public Scale Scale { get; set; }  // Enum
-        public Airline Airline { get; set; }  // Enum
-        public Aircraft Aircraft { get; set; }  // Enum
+        public string Manufacturer { get; set; }  // String instead of Enum
+        public string Scale { get; set; }  // String instead of Enum
+        public string Airline { get; set; }  // String instead of Enum
+        public string Model { get; set; }  // Combined Make and Model as String
         public string PartNumber { get; set; }
         public string Registration { get; set; }
         public string Country { get; set; }
+        public string Continent { get; set; }  // Add Continent as a string
         public string ProductionYears { get; set; }
         public bool RollingGears { get; set; }
         public string Notes { get; set; }
