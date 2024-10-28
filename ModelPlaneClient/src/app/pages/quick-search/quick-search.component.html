@@ -19,8 +19,6 @@
           </select>
         </td>
 
-
-
         <!-- Manufacturer Dropdown -->
         <td align="center">
           <select [(ngModel)]="searchCriteria.manufacturer" name="manufacturer" class="searchInput">
@@ -62,12 +60,15 @@
     <h3>Search Results</h3>
     <div *ngFor="let plane of searchResults" class="card mb-3">
       <div class="card-body">
-        <p><strong>Airline:</strong> {{ plane.airline }}</p>
-        <p><strong>Model:</strong> {{ plane.model }}</p> <!-- Updated from Aircraft to Model -->
-        <p><strong>Manufacturer:</strong> {{ plane.manufacturer }}</p>
-        <p><strong>Scale:</strong> {{ plane.scale }}</p>
-        <p><strong>Part Number:</strong> {{ plane.partNumber }}</p>
-        <p><strong>Wings900 ID:</strong> {{ plane.wings900Id }}</p> <!-- Updated to wings900Id -->
+        <!-- Make each result clickable -->
+        <a [routerLink]="['/plane-details', plane.id]" class="plane-link">
+          <p><strong>Airline:</strong> {{ plane.airline }}</p>
+          <p><strong>Model:</strong> {{ plane.model }}</p> <!-- Updated from Aircraft to Model -->
+          <p><strong>Manufacturer:</strong> {{ plane.manufacturer }}</p>
+          <p><strong>Scale:</strong> {{ plane.scale }}</p>
+          <p><strong>Part Number:</strong> {{ plane.partNumber }}</p>
+          <p><strong>Wings900 ID:</strong> {{ plane.wings900Id }}</p> <!-- Updated to wings900Id -->
+        </a>
       </div>
     </div>
   </div>

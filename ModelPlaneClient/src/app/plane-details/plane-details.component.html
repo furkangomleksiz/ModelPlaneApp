@@ -1,0 +1,63 @@
+<div class="container mt-4">
+    <h2 class="text-center">
+      {{ planeDetails.manufacturer }} {{ planeDetails.airline }} {{ planeDetails.model }} {{ planeDetails.scale }}
+    </h2>
+  
+    <table class="details-table">
+      <tr>
+        <td><strong>Manufacturer:</strong></td>
+        <td>{{ planeDetails.manufacturer }}</td>
+        <td><strong>Make/Model:</strong></td>
+        <td>{{ planeDetails.model }}</td>
+      </tr>
+      <tr>
+        <td><strong>Airline:</strong></td>
+        <td>{{ planeDetails.airline }}</td>
+        <td><strong>Scale:</strong></td>
+        <td>{{ planeDetails.scale }}</td>
+      </tr>
+      <tr>
+        <td><strong>Part #:</strong></td>
+        <td>{{ planeDetails.partNumber }}</td>
+        <td><strong>Wings900 ID:</strong></td>
+        <td>{{ planeDetails.wings900Id }}</td>
+      </tr>
+      <tr>
+        <td><strong>Registration:</strong></td>
+        <td>{{ planeDetails.registration }}</td>
+        <td><strong>Engines:</strong></td>
+        <td>{{ planeDetails.engines }}</td>
+      </tr>
+      <tr>
+        <td><strong>Country:</strong></td>
+        <td>{{ planeDetails.country }}</td>
+        <td><strong>Continent:</strong></td>
+        <td>{{ planeDetails.continent }}</td>
+      </tr>
+      <tr>
+        <td><strong>Production Years:</strong></td>
+        <td>{{ planeDetails.productionYears }}</td>
+        <td><strong>Units Made:</strong></td>
+        <td>{{ planeDetails.unitsMade }}</td>
+      </tr>
+      <tr>
+        <td><strong>Rolling Gears:</strong></td>
+        <td>{{ planeDetails.rollingGears ? 'Yes' : 'No' }}</td>
+        <td><strong>Includes Stand:</strong></td>
+        <td>{{ planeDetails.includesStand ? 'Yes' : 'No' }}</td>
+      </tr>
+      <tr>
+        <td colspan="4"><strong>Notes:</strong> {{ planeDetails.notes }}</td>
+      </tr>
+    </table>
+  
+    <div class="model-photos">
+      <h3>Model Photos</h3>
+      <div *ngFor="let image of planeDetails.images" class="photo">
+        <img [src]="getImageUrl(image)" alt="Plane Image" class="img-fluid">
+      </div>
+    </div>
+    
+    
+  </div>
+  

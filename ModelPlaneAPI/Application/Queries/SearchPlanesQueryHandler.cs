@@ -32,7 +32,7 @@ namespace ModelPlaneApp.Application.Queries
                 request.Engines,
                 request.UnitsMade,
                 request.IncludesStand,
-                request.ModelId,
+                request.Wings900Id,
                 request.SortBy
             );
         }

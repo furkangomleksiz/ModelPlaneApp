@@ -19,7 +19,7 @@ namespace ModelPlaneApp.Application.Queries
         public string? Engines { get; set; }
         public int? UnitsMade { get; set; }
         public bool? IncludesStand { get; set; }
-        public string? ModelId { get; set; }
+        public string? Wings900Id { get; set; }
         public string? SortBy { get; set; }
     }
 }

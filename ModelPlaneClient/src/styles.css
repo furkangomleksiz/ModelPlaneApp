@@ -72,4 +72,16 @@ table.niceform td {
   .search-buttons {
     margin-top: 10px;
   }
+
+  .plane-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .plane-link:hover {
+    color: #2989CC;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
 }

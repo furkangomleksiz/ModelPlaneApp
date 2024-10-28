@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router'; 
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -9,7 +10,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, RouterModule]
 })
 export class AdvancedSearchComponent {
 

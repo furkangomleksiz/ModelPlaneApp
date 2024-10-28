@@ -126,14 +126,19 @@
     <h3>Search Results</h3>
     <div *ngFor="let plane of searchResults" class="card mb-3">
       <div class="card-body">
-        <p><strong>Airline:</strong> {{ plane.airline }}</p>
-        <p><strong>Model:</strong> {{ plane.model }}</p> <!-- Replaced Aircraft -->
-        <p><strong>Manufacturer:</strong> {{ plane.manufacturer }}</p>
-        <p><strong>Scale:</strong> {{ plane.scale }}</p>
-        <p><strong>Part Number:</strong> {{ plane.partNumber }}</p>
-        <p><strong>Model ID:</strong> {{ plane.modelId }}</p>
-        <p><strong>Registration:</strong> {{ plane.registration }}</p>
+        <!-- Make each result clickable, link to the plane details -->
+        <a [routerLink]="['/plane-details', plane.id]" class="plane-link">
+          <p><strong>Airline:</strong> {{ plane.airline }}</p>
+          <p><strong>Model:</strong> {{ plane.model }}</p> <!-- Replaced Aircraft -->
+          <p><strong>Manufacturer:</strong> {{ plane.manufacturer }}</p>
+          <p><strong>Scale:</strong> {{ plane.scale }}</p>
+          <p><strong>Part Number:</strong> {{ plane.partNumber }}</p>
+          <p><strong>Wings900 ID:</strong> {{ plane.wings900Id }}</p> <!-- Changed to Wings900 ID -->
+          <p><strong>Registration:</strong> {{ plane.registration }}</p>
+        </a>
       </div>
     </div>
   </div>
+
+
 </div>

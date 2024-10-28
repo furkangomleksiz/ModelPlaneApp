@@ -75,102 +75,102 @@ public class PlaneRepository : IPlaneRepository
     string engines = null,
     int? unitsMade = null,
     bool? includesStand = null,
-    string modelId = null,
+    string wings900Id = null,
     string sortBy = null)
-{
-    var query = _context.Planes.AsQueryable();
-
-    if (!string.IsNullOrEmpty(manufacturer))
     {
-        query = query.Where(p => p.Manufacturer == manufacturer);
-    }
+        var query = _context.Planes.AsQueryable();
 
-    if (!string.IsNullOrEmpty(scale))
-    {
-        query = query.Where(p => p.Scale == scale);
-    }
-
-    if (!string.IsNullOrEmpty(airline))
-    {
-        query = query.Where(p => p.Airline == airline);
-    }
-
-    if (!string.IsNullOrEmpty(model))
-    {
-        query = query.Where(p => p.Model == model);  // Replacing aircraft with model
-    }
-
-    if (!string.IsNullOrEmpty(country))
-    {
-        query = query.Where(p => p.Country == country);
-    }
-
-    if (!string.IsNullOrEmpty(continent))
-    {
-        query = query.Where(p => p.Continent == continent);  // Continent as string filter
-    }
-
-    if (!string.IsNullOrEmpty(partNumber))
-    {
-        query = query.Where(p => p.PartNumber.Contains(partNumber));
-    }
-
-    if (!string.IsNullOrEmpty(registration))
-    {
-        query = query.Where(p => p.Registration.Contains(registration));
-    }
-
-    if (!string.IsNullOrEmpty(productionYears))
-    {
-        query = query.Where(p => p.ProductionYears.Contains(productionYears));
-    }
-
-    if (rollingGears.HasValue)
-    {
-        query = query.Where(p => p.RollingGears == rollingGears.Value);
-    }
-
-    if (!string.IsNullOrEmpty(notes))
-    {
-        query = query.Where(p => p.Notes.Contains(notes));
-    }
-
-    if (!string.IsNullOrEmpty(engines))
-    {
-        query = query.Where(p => p.Engines.Contains(engines));
-    }
-
-    if (unitsMade.HasValue)
-    {
-        query = query.Where(p => p.UnitsMade == unitsMade.Value);
-    }
-
-    if (includesStand.HasValue)
-    {
-        query = query.Where(p => p.IncludesStand == includesStand.Value);
-    }
-
-    if (!string.IsNullOrEmpty(modelId))
-    {
-        query = query.Where(p => p.Wings900Id.ToString().Contains(modelId));
-    }
-
-    // Sorting logic remains the same
-    if (!string.IsNullOrEmpty(sortBy))
-    {
-        query = sortBy.ToLower() switch
+        if (!string.IsNullOrEmpty(manufacturer))
         {
-            "airline" => query.OrderBy(p => p.Airline),
-            "manufacturer" => query.OrderBy(p => p.Manufacturer),
-            "modelid" => query.OrderBy(p => p.Wings900Id),
-            "country" => query.OrderBy(p => p.Country),
-            "scale" => query.OrderBy(p => p.Scale),
-            _ => query.OrderBy(p => p.Airline) // Default sorting
-        };
-    }
+            query = query.Where(p => p.Manufacturer == manufacturer);
+        }
 
-    return await query.ToListAsync();
-}
+        if (!string.IsNullOrEmpty(scale))
+        {
+            query = query.Where(p => p.Scale == scale);
+        }
+
+        if (!string.IsNullOrEmpty(airline))
+        {
+            query = query.Where(p => p.Airline == airline);
+        }
+
+        if (!string.IsNullOrEmpty(model))
+        {
+            query = query.Where(p => p.Model == model);  // Replacing aircraft with model
+        }
+
+        if (!string.IsNullOrEmpty(country))
+        {
+            query = query.Where(p => p.Country == country);
+        }
+
+        if (!string.IsNullOrEmpty(continent))
+        {
+            query = query.Where(p => p.Continent == continent);  // Continent as string filter
+        }
+
+        if (!string.IsNullOrEmpty(partNumber))
+        {
+            query = query.Where(p => p.PartNumber.Contains(partNumber));
+        }
+
+        if (!string.IsNullOrEmpty(registration))
+        {
+            query = query.Where(p => p.Registration.Contains(registration));
+        }
+
+        if (!string.IsNullOrEmpty(productionYears))
+        {
+            query = query.Where(p => p.ProductionYears.Contains(productionYears));
+        }
+
+        if (rollingGears.HasValue)
+        {
+            query = query.Where(p => p.RollingGears == rollingGears.Value);
+        }
+
+        if (!string.IsNullOrEmpty(notes))
+        {
+            query = query.Where(p => p.Notes.Contains(notes));
+        }
+
+        if (!string.IsNullOrEmpty(engines))
+        {
+            query = query.Where(p => p.Engines.Contains(engines));
+        }
+
+        if (unitsMade.HasValue)
+        {
+            query = query.Where(p => p.UnitsMade == unitsMade.Value);
+        }
+
+        if (includesStand.HasValue)
+        {
+            query = query.Where(p => p.IncludesStand == includesStand.Value);
+        }
+
+        if (!string.IsNullOrEmpty(wings900Id) && int.TryParse(wings900Id, out var wingsId))
+        {
+            query = query.Where(p => p.Wings900Id == wingsId);
+        }
+
+        // Sorting logic remains the same
+        if (!string.IsNullOrEmpty(sortBy))
+        {
+            query = sortBy.ToLower() switch
+            {
+                "airline" => query.OrderBy(p => p.Airline),
+                "manufacturer" => query.OrderBy(p => p.Manufacturer),
+                "modelid" => query.OrderBy(p => p.Wings900Id),
+                "country" => query.OrderBy(p => p.Country),
+                "scale" => query.OrderBy(p => p.Scale),
+                _ => query.OrderBy(p => p.Airline) // Default sorting
+            };
+        }
+
+        return await query.ToListAsync();
+    }
 
 
 }

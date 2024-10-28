@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router'; 
 import { environment } from '../../../environments/environment';
 
 
@@ -10,7 +11,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './quick-search.component.html',
   styleUrls: ['./quick-search.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, RouterModule]
 })
 export class QuickSearchComponent {
 
