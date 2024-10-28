@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
 
@@ -79,36 +79,44 @@ export class QuickSearchComponent {
 
   constructor(private http: HttpClient) { }
 
-  
+
   // Trigger search logic
-onSearch() {
-  const params = new URLSearchParams();
+  onSearch() {
+    const params = new URLSearchParams();
 
-  // Add selected values directly as they are strings
-  if (this.searchCriteria.manufacturer) params.append('manufacturer', this.searchCriteria.manufacturer);
-  if (this.searchCriteria.airline) params.append('airline', this.searchCriteria.airline);
-  if (this.searchCriteria.model) params.append('model', this.searchCriteria.model);  // Changed from aircraft to model
-  if (this.searchCriteria.scale) params.append('scale', this.searchCriteria.scale);
+    // Add selected values directly as they are strings
+    if (this.searchCriteria.manufacturer) params.append('manufacturer', this.searchCriteria.manufacturer);
+    if (this.searchCriteria.airline) params.append('airline', this.searchCriteria.airline);
+    if (this.searchCriteria.model) params.append('model', this.searchCriteria.model);  // Changed from aircraft to model
+    if (this.searchCriteria.scale) params.append('scale', this.searchCriteria.scale);
 
-  if (this.searchCriteria.partNumber) {
-    params.append('partNumber', this.searchCriteria.partNumber);
-  }
-
-  if (this.searchCriteria.wings900Id) {
-    params.append('modelId', this.searchCriteria.wings900Id);  // Ensure this refers to Wings900Id
-  }
-
-  // Make HTTP GET request with the search criteria
-  this.http.get<any[]>(`${environment.apiUrl}/planes/search?` + params.toString()).subscribe(
-    result => {
-      this.searchResults = result;
-      console.log('Search result:', this.searchResults);
-    },
-    error => {
-      console.error('Error during search:', error);
-      alert('An error occurred while performing the search.');
+    if (this.searchCriteria.partNumber) {
+      params.append('partNumber', this.searchCriteria.partNumber);
     }
-  );
-}
+
+    if (this.searchCriteria.wings900Id) {
+      params.append('modelId', this.searchCriteria.wings900Id);  // Ensure this refers to Wings900Id
+    }
+
+    // Make HTTP GET request with the search criteria
+    this.http.get<any[]>(`${environment.apiUrl}/planes/search?` + params.toString()).subscribe(
+      result => {
+        this.searchResults = result;
+        console.log('Search result:', this.searchResults);
+      },
+      error => {
+        console.error('Error during search:', error);
+        alert('An error occurred while performing the search.');
+      }
+    );
+  }
+
+  getImageUrl(image: string): string {
+    // Ensure no duplicate 'images/planes/' in the path
+    const basePath = 'http://localhost:5005';
+    return image.startsWith('/images/')
+      ? `${basePath}${image}`
+      : `${basePath}/api/images/${image}`;
+  }
 
 }

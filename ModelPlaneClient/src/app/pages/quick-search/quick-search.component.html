@@ -58,17 +58,43 @@
   <!-- Display search results here -->
   <div *ngIf="searchResults.length > 0" class="mt-4">
     <h3>Search Results</h3>
-    <div *ngFor="let plane of searchResults" class="card mb-3">
-      <div class="card-body">
-        <!-- Make each result clickable -->
-        <a [routerLink]="['/plane-details', plane.id]" class="plane-link">
-          <p><strong>Airline:</strong> {{ plane.airline }}</p>
-          <p><strong>Model:</strong> {{ plane.model }}</p> <!-- Updated from Aircraft to Model -->
-          <p><strong>Manufacturer:</strong> {{ plane.manufacturer }}</p>
-          <p><strong>Scale:</strong> {{ plane.scale }}</p>
-          <p><strong>Part Number:</strong> {{ plane.partNumber }}</p>
-          <p><strong>Wings900 ID:</strong> {{ plane.wings900Id }}</p> <!-- Updated to wings900Id -->
-        </a>
+    <div *ngFor="let plane of searchResults" class="card mb-3 search-card">
+      <div class="row g-0">
+        <!-- Image Section -->
+        <div class="col-md-4">
+          <img
+            [src]="getImageUrl(plane.images[0])"
+            alt="Plane Image"
+            class="img-fluid rounded-start"
+          />
+        </div>
+  
+        <!-- Plane Details Section -->
+        <div class="col-md-8">
+          <div class="card-body">
+            <!-- Top Line: Airline - Model - Registration -->
+            <a
+              [routerLink]="['/plane-details', plane.id]"
+              class="plane-link"
+              style="text-decoration: none; color: inherit;"
+            >
+              <h5 class="card-title">
+                {{ plane.airline }} - {{ plane.model }} - {{ plane.registration }}
+              </h5>
+            </a>
+  
+            <!-- Second Line: Scale and Manufacturer -->
+            <p class="card-text">
+              <strong>Scale:</strong> {{ plane.scale }} | 
+              <strong>Manufacturer:</strong> {{ plane.manufacturer }}
+            </p>
+  
+            <!-- Bottom Line: Notes -->
+            <p class="card-text">
+              <small class="text-muted">{{ plane.notes }}</small>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

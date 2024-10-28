@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor],  // Add NgFor here
+  imports: [CommonModule, RouterModule],  // Add RouterModule for navigation
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -20,5 +21,13 @@ export class HomeComponent implements OnInit {
       next: (response) => this.planes = response,
       error: (error) => console.error('Error fetching planes:', error)
     });
+  }
+
+  getImageUrl(image: string): string {
+    // Ensure no duplicate 'images/planes/' in the path
+    const basePath = 'http://localhost:5005';
+    return image.startsWith('/images/')
+      ? `${basePath}${image}`
+      : `${basePath}/api/images/${image}`;
   }
 }

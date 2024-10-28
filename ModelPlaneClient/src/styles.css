@@ -83,5 +83,26 @@ table.niceform td {
     text-decoration: underline;
     cursor: pointer;
   }
+
+  .search-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  
+  .search-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .img-fluid {
+    max-height: 150px;
+    object-fit: cover;
+  }
+  
+  .plane-link:hover {
+    text-decoration: underline;
+  }
+  
   
 }

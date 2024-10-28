@@ -1,12 +1,35 @@
-<!-- src/app/pages/home/home.component.html -->
-<div class="container">
-    <h2>Latest Additions</h2>
-    <ul class="list-group">
-      <li class="list-group-item" *ngFor="let plane of planes">
-        <h5>{{ plane.name }}</h5>
-        <p>Manufacturer: {{ plane.manufacturer }}</p>
-        <p>Scale: {{ plane.scale }}</p>
-      </li>
-    </ul>
+<div class="container mt-4">
+  <h2>Latest Additions</h2>
+  <div *ngIf="planes.length > 0" class="mt-4">
+    <div *ngFor="let plane of planes" class="card mb-3 search-card">
+      <div class="row g-0">
+        <!-- Image Section -->
+        <div class="col-md-4">
+          <img
+            [src]="getImageUrl(plane.images[0])"
+            alt="Plane Image"
+            class="img-fluid rounded-start"
+          />
+        </div>
+
+        <!-- Plane Details Section -->
+        <div class="col-md-8">
+          <div class="card-body">
+            <a [routerLink]="['/plane-details', plane.id]" class="plane-link" style="text-decoration: none; color: inherit;">
+              <h5 class="card-title">
+                {{ plane.airline }} - {{ plane.model }} - {{ plane.registration }}
+              </h5>
+            </a>
+            <p class="card-text">
+              <strong>Scale:</strong> {{ plane.scale }} | 
+              <strong>Manufacturer:</strong> {{ plane.manufacturer }}
+            </p>
+            <p class="card-text">
+              <small class="text-muted">{{ plane.notes }}</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  
+</div>
