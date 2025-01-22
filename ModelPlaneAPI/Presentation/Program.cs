@@ -13,6 +13,7 @@ builder.Services.AddDbContext<PlaneContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQLConnection")));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 builder.Services.AddScoped<IPlaneRepository, PlaneRepository>();
+builder.Services.AddSingleton<JwtTokenCreator>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins", policy =>

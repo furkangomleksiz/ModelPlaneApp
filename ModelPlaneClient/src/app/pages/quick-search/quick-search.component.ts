@@ -95,7 +95,7 @@ export class QuickSearchComponent {
     }
 
     if (this.searchCriteria.wings900Id) {
-      params.append('modelId', this.searchCriteria.wings900Id);  // Ensure this refers to Wings900Id
+      params.append('wings900Id', this.searchCriteria.wings900Id);  // Ensure this refers to Wings900Id
     }
 
     // Make HTTP GET request with the search criteria

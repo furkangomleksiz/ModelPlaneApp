@@ -1,0 +1,34 @@
+<div class="container">
+    <h2>Upload Model</h2>
+    <form (ngSubmit)="onSubmit()">
+        <!-- Basic Attributes -->
+        <input type="number" [(ngModel)]="plane.wings900Id" name="wings900Id" placeholder="Wings900 ID" required />
+        <input type="text" [(ngModel)]="plane.manufacturer" name="manufacturer" placeholder="Manufacturer" required />
+        <input type="text" [(ngModel)]="plane.scale" name="scale" placeholder="Scale" required />
+        <input type="text" [(ngModel)]="plane.airline" name="airline" placeholder="Airline" />
+        <input type="text" [(ngModel)]="plane.model" name="model" placeholder="Model" required />
+
+        <!-- Additional Attributes -->
+        <input type="text" [(ngModel)]="plane.partNumber" name="partNumber" placeholder="Part Number" />
+        <input type="text" [(ngModel)]="plane.registration" name="registration" placeholder="Registration" />
+        <input type="text" [(ngModel)]="plane.country" name="country" placeholder="Country" />
+        <input type="text" [(ngModel)]="plane.continent" name="continent" placeholder="Continent" />
+        <input type="text" [(ngModel)]="plane.productionYears" name="productionYears" placeholder="Production Years" />
+        <label>
+            <input type="checkbox" [(ngModel)]="plane.rollingGears" name="rollingGears" /> Rolling Gears
+        </label>
+        <input type="text" [(ngModel)]="plane.notes" name="notes" placeholder="Notes" />
+        <input type="text" [(ngModel)]="plane.engines" name="engines" placeholder="Engines" />
+        <input type="number" [(ngModel)]="plane.unitsMade" name="unitsMade" placeholder="Units Made" />
+        <label>
+            <input type="checkbox" [(ngModel)]="plane.includesStand" name="includesStand" /> Includes Stand
+        </label>
+
+        <!-- Image Upload -->
+        <label>Upload Images</label>
+        <input type="file" (change)="onFileSelected($event)" multiple />
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+</div>

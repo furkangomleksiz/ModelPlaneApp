@@ -9,6 +9,7 @@ namespace ModelPlaneAPI.Data
     public class PlaneContext : DbContext
     {
         public DbSet<Plane> Planes { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public PlaneContext(DbContextOptions<PlaneContext> options) 
         : base(options) 
