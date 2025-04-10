@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.http.get<any[]>(this.apiUrl).subscribe({
-      next: (response) => this.planes = response,
+      next: (response) => this.planes = response.reverse(), // 👈 Reverses the order
       error: (error) => console.error('Error fetching planes:', error)
     });
   }
