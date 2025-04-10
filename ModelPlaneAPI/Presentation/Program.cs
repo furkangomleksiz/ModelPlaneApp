@@ -16,9 +16,9 @@ builder.Services.AddScoped<IPlaneRepository, PlaneRepository>();
 builder.Services.AddSingleton<JwtTokenCreator>();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("https://your-vercel-domain.vercel.app") // Replace with your Vercel domain
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowFrontend");
 
 if (app.Environment.IsDevelopment())
 {
