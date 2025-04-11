@@ -24,10 +24,6 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getImageUrl(image: string): string {
-    const basePath = environment.apiUrl; // ✅ Use env base path for images too
-    return image.startsWith('/images/')
-      ? `${basePath}${image}`
-      : `${basePath}/images/${image}`;
-  }
+
+  
 }

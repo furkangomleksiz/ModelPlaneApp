@@ -120,11 +120,7 @@ export class AdvancedSearchComponent {
     this.searchResults = [];
   }
 
-  getImageUrl(image: string): string {
-    const basePath = environment.apiUrl;
-    return image.startsWith('/images/')
-      ? `${basePath}${image}`
-      : `${basePath}/api/images/${image}`;
-  }
+
+  
   
 }

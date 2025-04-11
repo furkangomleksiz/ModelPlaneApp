@@ -1,56 +1,54 @@
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using MediatR;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
 public class UploadImageCommandHandler : IRequestHandler<UploadImageCommand, string>
 {
     private readonly IPlaneRepository _planeRepository;
-    private readonly IWebHostEnvironment _webHostEnvironment;
+    private readonly Cloudinary _cloudinary;
 
-    public UploadImageCommandHandler(IPlaneRepository planeRepository, IWebHostEnvironment webHostEnvironment)
+    public UploadImageCommandHandler(IPlaneRepository planeRepository, Cloudinary cloudinary)
     {
         _planeRepository = planeRepository;
-        _webHostEnvironment = webHostEnvironment;
+        _cloudinary = cloudinary;
     }
 
     public async Task<string> Handle(UploadImageCommand request, CancellationToken cancellationToken)
     {
-        // Validate the file
         if (request.File == null || request.File.Length == 0)
         {
             throw new ArgumentException("No file uploaded.");
         }
 
-        // Get the plane from the repository
         var plane = await _planeRepository.GetPlaneByIdAsync(request.PlaneId);
         if (plane == null)
         {
             throw new ArgumentException("Plane not found.");
         }
 
-        // Ensure the 'images/planes' directory exists
-        var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "planes");
-        Directory.CreateDirectory(uploadsFolder);
-
-        // Generate a unique file name
-        var fileName = $"{request.PlaneId}_{Path.GetFileName(request.File.FileName)}";
-        var filePath = Path.Combine(uploadsFolder, fileName);
-
-        // Save the file
-        using (var stream = new FileStream(filePath, FileMode.Create))
+        using var stream = request.File.OpenReadStream();
+        var uploadParams = new ImageUploadParams
         {
-            await request.File.CopyToAsync(stream);
+            File = new FileDescription(request.File.FileName, stream),
+            Folder = "model_planes", // Optional: keeps things organized in your Cloudinary account
+            UseFilename = true,
+            UniqueFilename = false,
+            Overwrite = true
+        };
+
+        var uploadResult = await _cloudinary.UploadAsync(uploadParams, cancellationToken);
+
+        if (uploadResult.StatusCode != System.Net.HttpStatusCode.OK)
+        {
+            throw new Exception("Image upload failed.");
         }
 
-        // Construct the image URL
-        var imageUrl = $"/images/planes/{fileName}";
+        var imageUrl = uploadResult.SecureUrl.ToString();
 
-        // Add the new image URL to the Images array
-        plane.Images.Add(imageUrl); // Append the new image URL to the Images list
+        plane.Images.Add(imageUrl);
         await _planeRepository.UpdatePlaneAsync(plane);
 
         return imageUrl;

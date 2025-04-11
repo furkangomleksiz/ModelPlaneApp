@@ -111,12 +111,6 @@ export class QuickSearchComponent {
     );
   }
 
-  getImageUrl(image: string): string {
-    // Ensure no duplicate 'images/planes/' in the path
-    const basePath = 'http://localhost:5005';
-    return image.startsWith('/images/')
-      ? `${basePath}${image}`
-      : `${basePath}/api/images/${image}`;
-  }
+
 
 }

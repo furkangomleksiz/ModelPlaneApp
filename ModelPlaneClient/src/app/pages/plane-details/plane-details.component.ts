@@ -31,14 +31,7 @@ export class PlaneDetailsComponent implements OnInit {
     );
   }
 
-  // Determine if the image is an external or internal API path
-  getImageUrl(image: string): string {
-    // Ensure no duplicate 'images/planes/' in the path
-    const basePath = 'http://localhost:5005';
-    return image.startsWith('/images/')
-      ? `${basePath}${image}`
-      : `${basePath}/api/images/${image}`;
-  }
+
 
 
 
