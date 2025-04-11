@@ -26,9 +26,12 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("https://model-plane-client.vercel.app") // ✅ Update this to your actual Vercel frontend URL
-              .AllowAnyMethod()
-              .AllowAnyHeader();
+        policy.WithOrigins(
+            "https://model-plane-app.vercel.app",
+            "https://www.model-plane-app.vercel.app"
+        )
+        .AllowAnyMethod()
+        .AllowAnyHeader();
     });
 });
 
