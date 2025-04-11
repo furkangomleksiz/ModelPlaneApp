@@ -16,9 +16,10 @@ if (string.IsNullOrEmpty(rawUrl))
     throw new InvalidOperationException("DATABASE_URL environment variable is not set.");
 }
 
-var connectionString = rawUrl.StartsWith("postgres://")
+var connectionString = rawUrl.StartsWith("postgres://") || rawUrl.StartsWith("postgresql://")
     ? ConvertDatabaseUrlToNpgsql(rawUrl)
     : rawUrl;
+
 
 builder.Services.AddDbContext<PlaneContext>(options =>
     options.UseNpgsql(connectionString));
@@ -40,6 +41,12 @@ var app = builder.Build();
 
 static string ConvertDatabaseUrlToNpgsql(string databaseUrl)
 {
+    // Normalize postgres+postgresql
+    if (databaseUrl.StartsWith("postgresql://"))
+    {
+        databaseUrl = databaseUrl.Replace("postgresql://", "postgres://");
+    }
+
     var uri = new Uri(databaseUrl);
     var userInfo = uri.UserInfo.Split(':');
 
