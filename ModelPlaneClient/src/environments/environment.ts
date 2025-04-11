@@ -1,5 +1,5 @@
 export const environment = {
-    production: false,
+    production: true,
     apiUrl: 'https://modelplaneapp.onrender.com/api' // Your backend API base URL for development
   };
   
