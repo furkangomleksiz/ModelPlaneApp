@@ -121,10 +121,10 @@ export class AdvancedSearchComponent {
   }
 
   getImageUrl(image: string): string {
-    // Ensure no duplicate 'images/planes/' in the path
-    const basePath = 'http://localhost:5005';
+    const basePath = environment.apiUrl;
     return image.startsWith('/images/')
       ? `${basePath}${image}`
       : `${basePath}/api/images/${image}`;
   }
+  
 }

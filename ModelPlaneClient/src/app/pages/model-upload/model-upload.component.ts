@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-
+import { environment } from '../../../environments/environment'; // adjust if needed
 
 @Component({
   selector: 'app-model-upload',
@@ -11,7 +10,6 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './model-upload.component.html',
   styleUrls: ['./model-upload.component.css'],
   imports: [CommonModule, FormsModule],
-
 })
 export class ModelUploadComponent {
   plane = {
@@ -32,36 +30,44 @@ export class ModelUploadComponent {
     includesStand: false,
     imageUrls: []
   };
+
   selectedFiles: File[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   onFileSelected(event: any) {
     this.selectedFiles = Array.from(event.target.files);
   }
 
   onSubmit() {
-    // First, submit the plane details
-    this.http.post<any>('http://localhost:5005/api/Planes', this.plane).subscribe({
-      next: (response) => {
-        const planeId = response;
+    const token = localStorage.getItem('auth_token');  // Optional if you're using JWT auth
+    const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
+
+    this.http.post<any>(`${environment.apiUrl}/planes`, this.plane, headers).subscribe({
+      next: (planeId) => {
         if (this.selectedFiles.length > 0) {
           this.uploadImages(planeId);
+        } else {
+          console.log('Plane created without images');
         }
       },
-      error: (error) => console.error('Error creating plane:', error)
+      error: (error) => console.error('Error creating plane:', error),
     });
   }
 
   uploadImages(planeId: string) {
-    const uploadUrl = `http://localhost:5005/api/Planes/${planeId}/upload-image`;
+    const token = localStorage.getItem('auth_token');
+    const uploadUrl = `${environment.apiUrl}/planes/${planeId}/upload-image`;
+
     this.selectedFiles.forEach((file) => {
       const formData = new FormData();
       formData.append('file', file);
 
-      this.http.post(uploadUrl, formData).subscribe({
+      this.http.post(uploadUrl, formData, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      }).subscribe({
         next: () => console.log(`Image uploaded for plane ${planeId}`),
-        error: (error) => console.error('Error uploading image:', error)
+        error: (error) => console.error('Error uploading image:', error),
       });
     });
   }

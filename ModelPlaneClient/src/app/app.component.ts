@@ -4,6 +4,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BannerComponent } from './components/banner/banner.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   imports: [
     RouterOutlet,
     NgFor,
-    BannerComponent, 
+    BannerComponent,
     NavbarComponent
   ],
   templateUrl: './app.component.html',
@@ -21,9 +22,9 @@ export class AppComponent implements OnInit {
   http = inject(HttpClient);
   title = 'ModelPlaneClient';
   planes: any;
-  
+
   ngOnInit(): void {
-    this.http.get('http://localhost:5005/api/Planes').subscribe({
+    this.http.get(`${environment.apiUrl}/planes`).subscribe({
       next: response => this.planes = response,
       error: error => console.log(error),
       complete: () => console.log('Request has completed'),
