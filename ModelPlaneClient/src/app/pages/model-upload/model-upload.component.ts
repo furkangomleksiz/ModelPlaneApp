@@ -33,11 +33,11 @@ export class ModelUploadComponent {
 
   selectedFiles: File[] = [];
 
-  uploadSuccess = false;
+  success = false;
   uploadedPlane: any = null;
   uploadedImageUrl: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   onFileSelected(event: any) {
     this.selectedFiles = Array.from(event.target.files);
@@ -49,11 +49,12 @@ export class ModelUploadComponent {
 
     this.http.post<any>(`${environment.apiUrl}/planes`, this.plane, headers).subscribe({
       next: (planeId) => {
-        this.uploadedPlane = { ...this.plane, id: planeId }; // keep reference for popup
+        this.uploadedPlane = { ...this.plane, id: planeId };  // save for popup
         if (this.selectedFiles.length > 0) {
           this.uploadImages(planeId);
         } else {
-          this.uploadSuccess = true;
+          this.success = true;
+          this.resetForm();
         }
       },
       error: (error) => console.error('Error creating plane:', error),
@@ -64,19 +65,41 @@ export class ModelUploadComponent {
     const token = localStorage.getItem('auth_token');
     const uploadUrl = `${environment.apiUrl}/planes/${planeId}/upload-image`;
 
-    const file = this.selectedFiles[0]; // use the first file for preview
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', this.selectedFiles[0]); // just show the first image in preview
 
     this.http.post<any>(uploadUrl, formData, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     }).subscribe({
       next: (res) => {
         this.uploadedImageUrl = res.url;
-        this.uploadSuccess = true;
+        this.success = true;
+        this.resetForm();
       },
       error: (error) => console.error('Error uploading image:', error),
     });
+  }
+
+  resetForm() {
+    this.plane = {
+      wings900Id: null,
+      manufacturer: '',
+      scale: '',
+      airline: '',
+      model: '',
+      partNumber: '',
+      registration: '',
+      country: '',
+      continent: '',
+      productionYears: '',
+      rollingGears: false,
+      notes: '',
+      engines: '',
+      unitsMade: null,
+      includesStand: false,
+      imageUrls: []
+    };
+    this.selectedFiles = [];
   }
 
 }

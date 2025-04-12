@@ -105,44 +105,31 @@
     <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-  <!-- ✅ Success Feedback Section -->
-  <div *ngIf="uploadSuccess && uploadedPlane" class="alert alert-success mt-4">
-    <h4 class="alert-heading">Upload Successful!</h4>
-    <p>Your model has been uploaded. Here's a quick summary:</p>
-
-    <div class="card mt-3">
-      <div class="row g-0">
-        <div class="col-md-4" *ngIf="uploadedImageUrl">
-          <img [src]="uploadedImageUrl" alt="Uploaded Image" class="img-fluid rounded-start" />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">
-              {{ uploadedPlane.airline }} - {{ uploadedPlane.model }} - {{ uploadedPlane.registration }}
-            </h5>
-            <p class="card-text">
-              <strong>Scale:</strong> {{ uploadedPlane.scale }} |
-              <strong>Manufacturer:</strong> {{ uploadedPlane.manufacturer }}
-            </p>
-            <p class="card-text">
-              <strong>Country:</strong> {{ uploadedPlane.country }} |
-              <strong>Continent:</strong> {{ uploadedPlane.continent }}
-            </p>
-            <p class="card-text">
-              <strong>Wings900 ID:</strong> {{ uploadedPlane.wings900Id }} |
-              <strong>Production Years:</strong> {{ uploadedPlane.productionYears }}
-            </p>
-            <p class="card-text">
-              <strong>Includes Stand:</strong> {{ uploadedPlane.includesStand ? 'Yes' : 'No' }} |
-              <strong>Rolling Gears:</strong> {{ uploadedPlane.rollingGears ? 'Yes' : 'No' }}
-            </p>
-            <p class="card-text">
-              <strong>Notes:</strong> {{ uploadedPlane.notes || '-' }}
-            </p>
-          </div>
-        </div>
+  <div
+  class="modal fade show"
+  tabindex="-1"
+  style="display: block; background: rgba(0, 0, 0, 0.5);"
+  *ngIf="success"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Upload Successful</h5>
+        <button type="button" class="btn-close" (click)="success = false"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img *ngIf="uploadedImageUrl" [src]="uploadedImageUrl" alt="Plane Image" class="img-fluid mb-3 rounded">
+        <p><strong>{{ uploadedPlane.model }}</strong> - {{ uploadedPlane.airline }}</p>
+        <p><strong>Scale:</strong> {{ uploadedPlane.scale }}</p>
+        <p><strong>Manufacturer:</strong> {{ uploadedPlane.manufacturer }}</p>
+        <p><small>{{ uploadedPlane.notes }}</small></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="success = false">Close</button>
       </div>
     </div>
   </div>
+</div>
+
 
 </div>
