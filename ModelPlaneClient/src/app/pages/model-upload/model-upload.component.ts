@@ -36,6 +36,8 @@ export class ModelUploadComponent {
   success = false;
   uploadedPlane: any = null;
   uploadedImageUrl: string = '';
+  isSubmitting = false;
+
 
   constructor(private http: HttpClient) { }
 
@@ -44,30 +46,37 @@ export class ModelUploadComponent {
   }
 
   onSubmit() {
+    if (this.isSubmitting) return;  // prevent double submits
+  
+    this.isSubmitting = true;
     const token = localStorage.getItem('auth_token');
     const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
-
+  
     this.http.post<any>(`${environment.apiUrl}/planes`, this.plane, headers).subscribe({
       next: (planeId) => {
-        this.uploadedPlane = { ...this.plane, id: planeId };  // save for popup
+        this.uploadedPlane = { ...this.plane, id: planeId };
         if (this.selectedFiles.length > 0) {
           this.uploadImages(planeId);
         } else {
           this.success = true;
           this.resetForm();
+          this.isSubmitting = false;
         }
       },
-      error: (error) => console.error('Error creating plane:', error),
+      error: (error) => {
+        console.error('Error creating plane:', error);
+        this.isSubmitting = false;
+      }
     });
   }
-
+  
   uploadImages(planeId: string) {
     const token = localStorage.getItem('auth_token');
     const uploadUrl = `${environment.apiUrl}/planes/${planeId}/upload-image`;
-
+  
     const formData = new FormData();
-    formData.append('file', this.selectedFiles[0]); // just show the first image in preview
-
+    formData.append('file', this.selectedFiles[0]);
+  
     this.http.post<any>(uploadUrl, formData, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     }).subscribe({
@@ -75,8 +84,12 @@ export class ModelUploadComponent {
         this.uploadedImageUrl = res.url;
         this.success = true;
         this.resetForm();
+        this.isSubmitting = false;
       },
-      error: (error) => console.error('Error uploading image:', error),
+      error: (error) => {
+        console.error('Error uploading image:', error);
+        this.isSubmitting = false;
+      }
     });
   }
 

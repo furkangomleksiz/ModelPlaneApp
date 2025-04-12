@@ -103,33 +103,31 @@
     </div>
 
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+      <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+      {{ isSubmitting ? 'Uploading...' : 'Submit' }}
+    </button>
   </form>
-  <div
-  class="modal fade show"
-  tabindex="-1"
-  style="display: block; background: rgba(0, 0, 0, 0.5);"
-  *ngIf="success"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Upload Successful</h5>
-        <button type="button" class="btn-close" (click)="success = false"></button>
-      </div>
-      <div class="modal-body text-center">
-        <img *ngIf="uploadedImageUrl" [src]="uploadedImageUrl" alt="Plane Image" class="img-fluid mb-3 rounded">
-        <p><strong>{{ uploadedPlane.model }}</strong> - {{ uploadedPlane.airline }}</p>
-        <p><strong>Scale:</strong> {{ uploadedPlane.scale }}</p>
-        <p><strong>Manufacturer:</strong> {{ uploadedPlane.manufacturer }}</p>
-        <p><small>{{ uploadedPlane.notes }}</small></p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" (click)="success = false">Close</button>
+  <div class="modal fade show" tabindex="-1" style="display: block; background: rgba(0, 0, 0, 0.5);" *ngIf="success">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Upload Successful</h5>
+          <button type="button" class="btn-close" (click)="success = false"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img *ngIf="uploadedImageUrl" [src]="uploadedImageUrl" alt="Plane Image" class="img-fluid mb-3 rounded">
+          <p><strong>{{ uploadedPlane.model }}</strong> - {{ uploadedPlane.airline }}</p>
+          <p><strong>Scale:</strong> {{ uploadedPlane.scale }}</p>
+          <p><strong>Manufacturer:</strong> {{ uploadedPlane.manufacturer }}</p>
+          <p><small>{{ uploadedPlane.notes }}</small></p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="success = false">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 </div>
