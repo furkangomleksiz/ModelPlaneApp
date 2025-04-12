@@ -1,204 +1,148 @@
 <div class="container mt-5">
-    <h2 class="mb-4">Upload Model</h2>
-    <form (ngSubmit)="onSubmit()" class="needs-validation">
-      <!-- Wings900 ID -->
-      <div class="mb-3">
-        <label for="wings900Id" class="form-label">Wings900 ID</label>
-        <input
-          type="number"
-          class="form-control"
-          id="wings900Id"
-          [(ngModel)]="plane.wings900Id"
-          name="wings900Id"
-          required
-        />
+  <h2 class="mb-4">Upload Model</h2>
+  <form (ngSubmit)="onSubmit()" class="needs-validation">
+    <!-- Wings900 ID -->
+    <div class="mb-3">
+      <label for="wings900Id" class="form-label">Wings900 ID</label>
+      <input type="number" class="form-control" id="wings900Id" [(ngModel)]="plane.wings900Id" name="wings900Id"
+        required />
+    </div>
+
+    <!-- Manufacturer -->
+    <div class="mb-3">
+      <label for="manufacturer" class="form-label">Manufacturer</label>
+      <input type="text" class="form-control" id="manufacturer" [(ngModel)]="plane.manufacturer" name="manufacturer"
+        required />
+    </div>
+
+    <!-- Scale -->
+    <div class="mb-3">
+      <label for="scale" class="form-label">Scale</label>
+      <input type="text" class="form-control" id="scale" [(ngModel)]="plane.scale" name="scale" required />
+    </div>
+
+    <!-- Airline -->
+    <div class="mb-3">
+      <label for="airline" class="form-label">Airline</label>
+      <input type="text" class="form-control" id="airline" [(ngModel)]="plane.airline" name="airline" />
+    </div>
+
+    <!-- Model -->
+    <div class="mb-3">
+      <label for="model" class="form-label">Model</label>
+      <input type="text" class="form-control" id="model" [(ngModel)]="plane.model" name="model" required />
+    </div>
+
+    <!-- Part Number -->
+    <div class="mb-3">
+      <label for="partNumber" class="form-label">Part Number</label>
+      <input type="text" class="form-control" id="partNumber" [(ngModel)]="plane.partNumber" name="partNumber" />
+    </div>
+
+    <!-- Registration -->
+    <div class="mb-3">
+      <label for="registration" class="form-label">Registration</label>
+      <input type="text" class="form-control" id="registration" [(ngModel)]="plane.registration" name="registration" />
+    </div>
+
+    <!-- Country -->
+    <div class="mb-3">
+      <label for="country" class="form-label">Country</label>
+      <input type="text" class="form-control" id="country" [(ngModel)]="plane.country" name="country" />
+    </div>
+
+    <!-- Continent -->
+    <div class="mb-3">
+      <label for="continent" class="form-label">Continent</label>
+      <input type="text" class="form-control" id="continent" [(ngModel)]="plane.continent" name="continent" />
+    </div>
+
+    <!-- Production Years -->
+    <div class="mb-3">
+      <label for="productionYears" class="form-label">Production Years</label>
+      <input type="text" class="form-control" id="productionYears" [(ngModel)]="plane.productionYears"
+        name="productionYears" />
+    </div>
+
+    <!-- Rolling Gears -->
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" id="rollingGears" [(ngModel)]="plane.rollingGears"
+        name="rollingGears" />
+      <label class="form-check-label" for="rollingGears">Rolling Gears</label>
+    </div>
+
+    <!-- Notes -->
+    <div class="mb-3">
+      <label for="notes" class="form-label">Notes</label>
+      <textarea class="form-control" id="notes" [(ngModel)]="plane.notes" name="notes" rows="3"></textarea>
+    </div>
+
+    <!-- Engines -->
+    <div class="mb-3">
+      <label for="engines" class="form-label">Engines</label>
+      <input type="text" class="form-control" id="engines" [(ngModel)]="plane.engines" name="engines" />
+    </div>
+
+    <!-- Units Made -->
+    <div class="mb-3">
+      <label for="unitsMade" class="form-label">Units Made</label>
+      <input type="number" class="form-control" id="unitsMade" [(ngModel)]="plane.unitsMade" name="unitsMade" />
+    </div>
+
+    <!-- Includes Stand -->
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" id="includesStand" [(ngModel)]="plane.includesStand"
+        name="includesStand" />
+      <label class="form-check-label" for="includesStand">Includes Stand</label>
+    </div>
+
+    <!-- Upload Images -->
+    <div class="mb-3">
+      <label for="images" class="form-label">Upload Images</label>
+      <input class="form-control" type="file" id="images" (change)="onFileSelected($event)" multiple />
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <!-- ✅ Success Feedback Section -->
+  <div *ngIf="uploadSuccess && uploadedPlane" class="alert alert-success mt-4">
+    <h4 class="alert-heading">Upload Successful!</h4>
+    <p>Your model has been uploaded. Here's a quick summary:</p>
+
+    <div class="card mt-3">
+      <div class="row g-0">
+        <div class="col-md-4" *ngIf="uploadedImageUrl">
+          <img [src]="uploadedImageUrl" alt="Uploaded Image" class="img-fluid rounded-start" />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ uploadedPlane.airline }} - {{ uploadedPlane.model }} - {{ uploadedPlane.registration }}
+            </h5>
+            <p class="card-text">
+              <strong>Scale:</strong> {{ uploadedPlane.scale }} |
+              <strong>Manufacturer:</strong> {{ uploadedPlane.manufacturer }}
+            </p>
+            <p class="card-text">
+              <strong>Country:</strong> {{ uploadedPlane.country }} |
+              <strong>Continent:</strong> {{ uploadedPlane.continent }}
+            </p>
+            <p class="card-text">
+              <strong>Wings900 ID:</strong> {{ uploadedPlane.wings900Id }} |
+              <strong>Production Years:</strong> {{ uploadedPlane.productionYears }}
+            </p>
+            <p class="card-text">
+              <strong>Includes Stand:</strong> {{ uploadedPlane.includesStand ? 'Yes' : 'No' }} |
+              <strong>Rolling Gears:</strong> {{ uploadedPlane.rollingGears ? 'Yes' : 'No' }}
+            </p>
+            <p class="card-text">
+              <strong>Notes:</strong> {{ uploadedPlane.notes || '-' }}
+            </p>
+          </div>
+        </div>
       </div>
-  
-      <!-- Manufacturer -->
-      <div class="mb-3">
-        <label for="manufacturer" class="form-label">Manufacturer</label>
-        <input
-          type="text"
-          class="form-control"
-          id="manufacturer"
-          [(ngModel)]="plane.manufacturer"
-          name="manufacturer"
-          required
-        />
-      </div>
-  
-      <!-- Scale -->
-      <div class="mb-3">
-        <label for="scale" class="form-label">Scale</label>
-        <input
-          type="text"
-          class="form-control"
-          id="scale"
-          [(ngModel)]="plane.scale"
-          name="scale"
-          required
-        />
-      </div>
-  
-      <!-- Airline -->
-      <div class="mb-3">
-        <label for="airline" class="form-label">Airline</label>
-        <input
-          type="text"
-          class="form-control"
-          id="airline"
-          [(ngModel)]="plane.airline"
-          name="airline"
-        />
-      </div>
-  
-      <!-- Model -->
-      <div class="mb-3">
-        <label for="model" class="form-label">Model</label>
-        <input
-          type="text"
-          class="form-control"
-          id="model"
-          [(ngModel)]="plane.model"
-          name="model"
-          required
-        />
-      </div>
-  
-      <!-- Part Number -->
-      <div class="mb-3">
-        <label for="partNumber" class="form-label">Part Number</label>
-        <input
-          type="text"
-          class="form-control"
-          id="partNumber"
-          [(ngModel)]="plane.partNumber"
-          name="partNumber"
-        />
-      </div>
-  
-      <!-- Registration -->
-      <div class="mb-3">
-        <label for="registration" class="form-label">Registration</label>
-        <input
-          type="text"
-          class="form-control"
-          id="registration"
-          [(ngModel)]="plane.registration"
-          name="registration"
-        />
-      </div>
-  
-      <!-- Country -->
-      <div class="mb-3">
-        <label for="country" class="form-label">Country</label>
-        <input
-          type="text"
-          class="form-control"
-          id="country"
-          [(ngModel)]="plane.country"
-          name="country"
-        />
-      </div>
-  
-      <!-- Continent -->
-      <div class="mb-3">
-        <label for="continent" class="form-label">Continent</label>
-        <input
-          type="text"
-          class="form-control"
-          id="continent"
-          [(ngModel)]="plane.continent"
-          name="continent"
-        />
-      </div>
-  
-      <!-- Production Years -->
-      <div class="mb-3">
-        <label for="productionYears" class="form-label">Production Years</label>
-        <input
-          type="text"
-          class="form-control"
-          id="productionYears"
-          [(ngModel)]="plane.productionYears"
-          name="productionYears"
-        />
-      </div>
-  
-      <!-- Rolling Gears -->
-      <div class="form-check mb-3">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="rollingGears"
-          [(ngModel)]="plane.rollingGears"
-          name="rollingGears"
-        />
-        <label class="form-check-label" for="rollingGears">Rolling Gears</label>
-      </div>
-  
-      <!-- Notes -->
-      <div class="mb-3">
-        <label for="notes" class="form-label">Notes</label>
-        <textarea
-          class="form-control"
-          id="notes"
-          [(ngModel)]="plane.notes"
-          name="notes"
-          rows="3"
-        ></textarea>
-      </div>
-  
-      <!-- Engines -->
-      <div class="mb-3">
-        <label for="engines" class="form-label">Engines</label>
-        <input
-          type="text"
-          class="form-control"
-          id="engines"
-          [(ngModel)]="plane.engines"
-          name="engines"
-        />
-      </div>
-  
-      <!-- Units Made -->
-      <div class="mb-3">
-        <label for="unitsMade" class="form-label">Units Made</label>
-        <input
-          type="number"
-          class="form-control"
-          id="unitsMade"
-          [(ngModel)]="plane.unitsMade"
-          name="unitsMade"
-        />
-      </div>
-  
-      <!-- Includes Stand -->
-      <div class="form-check mb-3">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="includesStand"
-          [(ngModel)]="plane.includesStand"
-          name="includesStand"
-        />
-        <label class="form-check-label" for="includesStand">Includes Stand</label>
-      </div>
-  
-      <!-- Upload Images -->
-      <div class="mb-3">
-        <label for="images" class="form-label">Upload Images</label>
-        <input
-          class="form-control"
-          type="file"
-          id="images"
-          (change)="onFileSelected($event)"
-          multiple
-        />
-      </div>
-  
-      <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </div>
   </div>
-  
+
+</div>

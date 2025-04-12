@@ -33,6 +33,10 @@ export class ModelUploadComponent {
 
   selectedFiles: File[] = [];
 
+  uploadSuccess = false;
+  uploadedPlane: any = null;
+  uploadedImageUrl: string = '';
+
   constructor(private http: HttpClient) {}
 
   onFileSelected(event: any) {
@@ -40,15 +44,16 @@ export class ModelUploadComponent {
   }
 
   onSubmit() {
-    const token = localStorage.getItem('auth_token');  // Optional if you're using JWT auth
+    const token = localStorage.getItem('auth_token');
     const headers = token ? { headers: { Authorization: `Bearer ${token}` } } : {};
 
     this.http.post<any>(`${environment.apiUrl}/planes`, this.plane, headers).subscribe({
       next: (planeId) => {
+        this.uploadedPlane = { ...this.plane, id: planeId }; // keep reference for popup
         if (this.selectedFiles.length > 0) {
           this.uploadImages(planeId);
         } else {
-          console.log('Plane created without images');
+          this.uploadSuccess = true;
         }
       },
       error: (error) => console.error('Error creating plane:', error),
@@ -59,16 +64,19 @@ export class ModelUploadComponent {
     const token = localStorage.getItem('auth_token');
     const uploadUrl = `${environment.apiUrl}/planes/${planeId}/upload-image`;
 
-    this.selectedFiles.forEach((file) => {
-      const formData = new FormData();
-      formData.append('file', file);
+    const file = this.selectedFiles[0]; // use the first file for preview
+    const formData = new FormData();
+    formData.append('file', file);
 
-      this.http.post(uploadUrl, formData, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      }).subscribe({
-        next: () => console.log(`Image uploaded for plane ${planeId}`),
-        error: (error) => console.error('Error uploading image:', error),
-      });
+    this.http.post<any>(uploadUrl, formData, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    }).subscribe({
+      next: (res) => {
+        this.uploadedImageUrl = res.url;
+        this.uploadSuccess = true;
+      },
+      error: (error) => console.error('Error uploading image:', error),
     });
   }
+
 }

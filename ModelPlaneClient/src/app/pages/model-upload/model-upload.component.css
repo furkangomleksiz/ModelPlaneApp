@@ -1,0 +1,9 @@
+.card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .alert {
+    max-width: 800px;
+    margin: auto;
+  }
+  
